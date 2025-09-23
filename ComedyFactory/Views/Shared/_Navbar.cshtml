@@ -1,0 +1,35 @@
+﻿@using IOH
+<nav class="navbar navbar-expand-lg bg-white box-shadow-lg">
+    <div class="container">
+        <div class="col-xl-11 col-lg-10 col-12 mx-auto">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <a class="navbar-brand d-lg-none d-inline-block px-30" asp-action="Index" asp-controller="Home" asp-route-language="en">
+                <img src="~/images/factory-comdey.png" alt="fatory-comdey" width="150" />
+            </a>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto gap-lg-30 gap-0 mb-2 mb-lg-0">
+
+                    <li class="nav-item">
+                        <a class="nav-link @Html.IsSelected("Home", "Index")" asp-action="Index" asp-controller="Home" asp-route-language="en"> Home Page  </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn btn__register  @Html.IsSelected("Home", "Register")" asp-action="Register" asp-controller="Home" asp-route-language="en">Sign Up Now</a>
+                    </li>
+                </ul>
+                <a class="navbar-brand d-lg-inline-block d-none px-30" href="#">
+                    <img src="~/images/factory-comdey.png" alt="fatory-comdey" width="150" />
+                </a>
+                <ul class="navbar-nav  gap-lg-30 gap-0 ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link @Html.IsSelected("TermsAndCondition", "Index")" asp-action="Index" asp-controller="TermsAndCondition" asp-route-language="en">How to Sign Up</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link"  asp-route-language="ar">عربي</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>

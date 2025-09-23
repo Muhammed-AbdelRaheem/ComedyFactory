@@ -1,0 +1,54 @@
+﻿@using Data.Service
+@inject IBlockRepository _IBlockRepository
+
+@{
+    ViewData["Title"] = "قدم طلبك الآن";
+    var SignUpBanner = _IBlockRepository.GetBlockshomepage(BlockType.SignUpBanner);
+    var Banner = SignUpBanner.Result;
+    ViewData["RegistrationDone"] = "false";
+}
+
+
+@if (ViewData["RegistrationDone"] == "true")
+{
+    <div class="registration__done d-flex align-items-center justify-content-center py-30">
+        <div class="row w-100">
+            <div class="col-lg-5 col-md-6 mx-auto">
+                <div class="alert alert-info text-center w-100 py-50" role="alert">
+                    <h4 class="fw-bold">تم الانتهاء من التسجيل</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+
+    <div class="banner__bg">
+           @*  @if (Banner != null)
+    {
+
+                <div class="container">
+                    <img src="@Config.AssetsDomain@Banner.ArPicture?w=1920&h=800&mode=pad&bg=#ebe7d6" alt="" class="img-fluid" />
+                </div>
+
+     } *@
+    </div>
+    <div class="personal__details py-50">
+        <div class="text-center mb-50">
+            <a asp-action="Index" asp-controller="TermsAndCondition" asp-route-language="ar" class="btn btn__register">سجل الآن</a>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-10 col-lg-11 mx-auto">
+                    @await Html.PartialAsync(ViewData["FormView"].ToString())
+
+                </div>
+            </div>
+        </div>
+        <div class="home__photo text-start ">
+            <img src="~/images/home-photo.png?w=692&h=440&scale=both&mode=crop" alt="Alternate Text" class="img-fluid" />
+
+        </div>
+    </div>
+}

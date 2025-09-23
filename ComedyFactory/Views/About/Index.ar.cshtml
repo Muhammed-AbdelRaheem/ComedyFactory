@@ -1,0 +1,104 @@
+﻿@using Data.Service
+@model Block
+@{
+    ViewData["Title"] = "نبذة عن المبادرة";
+
+
+
+    var masters = ViewData["masters"] as List<Master>;
+    var Masterwithoutcategory = masters.Where(e => e.MasterCategoryId == null);
+
+
+
+
+
+    var mastersCategories = ViewData["mastersCategories"] as List<MasterCategory>;
+
+
+
+
+}
+
+<div class="about__page py-50">
+    @* <div class="container">
+        <div class="col-xl-10 col-lg-11 mx-auto">
+            @if (aboutsectionMedia != null)
+            {
+                <div class="intro">
+                    <div class="heading">
+                        <h1>
+                            @aboutsectionMedia.ArName
+                        </h1>
+                    </div>
+                    <div class="description mt-30">
+                        @Html.Raw(aboutsectionMedia.ArDescription)
+                    </div>
+                </div>
+
+            }
+        </div>
+    </div> *@
+    <div class="container-fluid ceo__details__container pe-0 ps-0 shadow-lg my-45">
+        <div class="row align-items-start justify-content-start">
+                @if (Masterwithoutcategory != null)
+            {
+                foreach (var item in Masterwithoutcategory)
+                {
+                    <div class="col-lg-4">
+                        <img src="@Config.ImageflowS3Key@item.ArPicture" class="img-fluid object-fit-cover w-100" />
+                    </div>
+
+                    <div class="col-lg-8 mt-50 ceo__details">
+
+                <div class="heading">
+                    <h1>@item.ArName</h1>
+                </div>
+                <div class="description mt-30">
+                            @Html.Raw(item.ArContent)
+
+                </div>
+            </div>
+            }
+            }
+        </div>
+    </div>
+
+    <div class="teachers mt-lg-70 mt-50">
+        <div class="container">
+            <div class="row">
+                       @foreach (var item in mastersCategories)
+                    {
+                <div class="col-xl-10 col-lg-11 mx-auto mb-100">
+
+                    <div class="heading heading__line">
+                            <h2> @item.ArName</h2>
+                    </div>
+                        @foreach (var item2 in masters.Where(e=> item.Id == e.MasterCategoryId))
+                        {
+                            <div class="d-flex flex-column gap-30 mt-lg-70 mt-50">
+@*                                 @for (int i = 0; i < 2; i++)
+                                { *@
+                                    <div class="row align-items-center">
+                                        <div class="col-lg-3 col-md-4 text-md-start text-center">
+                                        <img src="@Config.ImageflowS3Key@item2.ArPicture?w=323&h=435&mode=pad&bg=white" alt="teacher" class="img-fluid object-fit-contain" />
+                                        </div>
+                                        <div class="col-lg-9 col-md-8 mt-md-0 mt-30">
+                                            <div class="heading">
+                                                <h2>  @item2.ArName</h2>
+                                            </div>
+                                            <div class="description mt-30">
+                                            @Html.Raw(item2.ArContent)
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                @* } *@
+                            </div>
+                        }
+                </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,201 @@
+﻿@using Data.Service
+
+@{
+    var path = Config.AssetsDomain.TrimEnd('/');
+}
+
+@section CSS {
+    <link rel="stylesheet" href="@path/calendar/css/fullcalendar.min.css" />
+    <link rel="stylesheet" href="@path/calendar/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="@path/calendar/css/calendar.css" />
+}
+
+<div class="content-wrapper">
+    <div class="page-title d-flex align-items-center justify-content-between">
+        <span class="title-data">Booking Overview</span>
+        <ul class="nav nav-pills calendar-tabs" id="pills-tab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="pills-listView-tab" data-bs-toggle="pill" data-bs-target="#pills-listView" type="button" role="tab" aria-controls="pills-listView" aria-selected="true">List View</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="pills-calendarView-tab" data-bs-toggle="pill" data-bs-target="#pills-calendarView" type="button" role="tab" aria-controls="pills-calendarView" aria-selected="true">Calendar View</button>
+            </li>
+        </ul>
+    </div>
+    <div class="card main-card w-100">
+        <div class="card-body">
+            <div class="form-group">
+                <div class="row">
+                    <label class="col-lg-2 col-md-4 col-form-label">Courts</label>
+                    <div class="col-lg-4 col-md-8">
+                        <select class="form-control" name="" id="">
+                            <option value="">Court</option>
+                            <option value="">Court</option>
+                            <option value="">Court</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-content" id="pills-tabContent">
+                <div class="tab-pane fade show active" id="pills-listView" role="tabpanel" aria-labelledby="pills-listView-tab" tabindex="0"><div id='listView'></div></div>
+            </div>
+            <div class="tab-content" id="pills-tabContent">
+                <div class="tab-pane fade " id="pills-calendarView" role="tabpanel" aria-labelledby="pills-calendarView-tab" tabindex="0"><div id='calendarView'></div></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="eventModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel"></h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body"> </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="@path/calendar/js/bootstrap.min.js"></script>
+    <script src="@path/calendar/js/moment.min.js"></script>
+    <script src="@path/calendar/js/fullcalendar.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#calendarView").fullCalendar({
+                defaultDate: "2023-04-09",
+                timeFormat: 'h:mm a',
+                header: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'month,agendaWeek,agendaDay'
+                },
+                visibleRange: function (currentDate) {
+                    var startDate = moment().startOf("week");
+                    var endDate = moment().endOf("week");
+                    return {
+                        start: startDate,
+                        end: endDate,
+                    };
+                }, events: [
+                    {
+                        title: "Event 1",
+                        start: "2023-04-10T09:00:00",
+                        end: "2023-04-10T10:00:00",
+                        description: "This is event 1",
+                        className: "calendar-avaliable",
+                    },
+                    {
+                        title: "Event 2",
+                        start: "2023-04-12T14:00:00",
+                        end: "2023-04-12T16:00:00",
+                        description: "This is event 2",
+                        className: "calendar-book",
+                    },
+                    {
+                        title: "Event 3",
+                        start: "2023-04-12T18:00:00",
+                        end: "2023-04-12T20:00:00",
+                        description: "This is event 3",
+                        className: "calendar-block-to-kill",
+                    },
+                ],
+                eventRender: function (event, element) {
+                    if (event.className === "calendar-avaliable") {
+                        element.addClass("calendar-avaliable");
+                    } else if (event.className === "calendar-book") {
+                        element.addClass("calendar-book");
+                    } else if (event.className === "calendar-book") {
+                        element.addClass("calendar-book");
+                    } else if (event.textColor === "calendar-block-to-event") {
+                        element.addClass("calendar-block-to-event");
+                    } else if (event.className === "calendar-block-to-kill") {
+                        element.addClass("calendar-block-to-kill");
+                    } else if (event.className === "calendar-block-to-class") {
+                        element.addClass("calendar-block-to-class");
+                    } else if (event.className === "bulk-blok") {
+                        element.addClass("disabled bg-secondary");
+                    }
+                    element.find('.fc-title').hide();
+                    element.attr('title', event.title);
+                    element.attr('data-bs-toggle', 'tooltip');
+                    element.attr('data-bs-placement', 'top');
+                },
+                eventClick: function (event) {
+                    $("#eventModal").modal("show");
+                    $("#eventModal .modal-title").text(event.title);
+                    $("#eventModal .modal-body").text(event.description);
+                },
+            });
+
+            $("#listView").fullCalendar({
+                defaultView: "agendaWeek",
+                defaultDate: "2023-04-09",
+                timeFormat: 'h:mm a',
+                visibleRange: function (currentDate) {
+                    var startDate = moment().startOf("week");
+                    var endDate = moment().endOf("week");
+                    return {
+                        start: startDate,
+                        end: endDate,
+                    };
+                }, events: [
+                    {
+                        title: "Event 1",
+                        start: "2023-04-10T09:00:00",
+                        end: "2023-04-10T10:00:00",
+                        description: "This is event 1",
+                        className: "calendar-avaliable",
+                    },
+                    {
+                        title: "Event 2",
+                        start: "2023-04-12T14:00:00",
+                        end: "2023-04-12T16:00:00",
+                        description: "This is event 2",
+                        className: "calendar-book",
+                    },
+                    {
+                        title: "Event 3",
+                        start: "2023-04-12T18:00:00",
+                        end: "2023-04-12T20:00:00",
+                        description: "This is event 3",
+                        className: "calendar-block-to-kill",
+                    },
+                ],
+                eventRender: function (event, element) {
+                    if (event.className === "calendar-avaliable") {
+                        element.addClass("calendar-avaliable");
+                    } else if (event.className === "calendar-book") {
+                        element.addClass("calendar-book");
+                    } else if (event.className === "calendar-book") {
+                        element.addClass("calendar-book");
+                    } else if (event.textColor === "calendar-block-to-event") {
+                        element.addClass("calendar-block-to-event");
+                    } else if (event.className === "calendar-block-to-kill") {
+                        element.addClass("calendar-block-to-kill");
+                    } else if (event.className === "calendar-block-to-class") {
+                        element.addClass("calendar-block-to-class");
+                    } else if (event.className === "bulk-blok") {
+                        element.addClass("disabled bg-secondary");
+                    }
+                    element.find('.fc-title').hide();
+                    element.attr('title', event.title);
+                    element.attr('data-bs-toggle', 'tooltip');
+                    element.attr('data-bs-placement', 'top');
+                },
+                eventClick: function (event) {
+                    $("#eventModal").modal("show");
+                    $("#eventModal .modal-title").text(event.title);
+                    $("#eventModal .modal-body").text(event.description);
+                },
+            });
+
+            $('[data-bs-toggle="tooltip"]').tooltip()
+        });
+    </script>
+    }

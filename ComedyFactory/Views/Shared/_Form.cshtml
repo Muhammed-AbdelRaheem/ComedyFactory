@@ -1,0 +1,111 @@
+﻿
+@inject ICountryRepository _CountryRepository
+@inject IDesireRepository _IDesireRepository;
+@inject ICityRepository _CityRepository;
+
+@using Data.Service
+
+
+@model PersonalDataVM
+@{
+    var Countries = await _CountryRepository.GetCountriesListAsync();
+    var Desire = await _IDesireRepository.GetDesireSelectListAsync();
+    var City = await _CityRepository.GetCitiesListAsync();
+
+}
+
+
+
+
+
+
+<form id="formContact" asp-controller="Home" asp-action="ContactForm" asp-route-language="en">
+    @Html.AntiForgeryToken()
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="row">
+
+    <div class="col-md-6">
+        <div class="form-group mb-lg-40 mb-20">
+            <label class="mb-10" asp-for="Name">Name</label>
+            <input type="text" asp-for="Name" class="form-control" />
+            <small><span asp-validation-for="Name" class="form-text text-danger"></span></small>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="form-group mb-lg-40 mb-20">
+            <label class="mb-10" asp-for="Age">Age</label>
+            <input type="number" asp-for="Age " class="form-control" min="1" />
+            <small><span asp-validation-for="Age" class="form-text text-danger"></span></small>
+        </div>
+    </div>
+
+
+
+    <div class="col-md-6">
+        <div class="form-group mb-lg-40 mb-20">
+            <label class="mb-10" asp-for="Phone"> Phone</label>
+            <input type="number"  asp-for="Phone" class="form-control" />
+            <small><span asp-validation-for="Phone" class="form-text text-danger"></span></small>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="form-group mb-lg-40 mb-20">
+            <label class="mb-10" asp-for="Genders"></label>
+                <select class="form-select select__field" asp-for="Genders" asp-items="@Html.GetEnumSelectList<Gendar>()">
+                <option value="">Select</option>
+            </select>
+                <small><span asp-validation-for="Genders" class="form-text text-danger"></span></small>
+
+        </div>
+    </div>
+
+
+
+    <div class="col-md-6">
+        <div class="form-group mb-lg-40 mb-20">
+            <label class="mb-10" asp-for="Email">Email</label>
+            <input type="email" asp-for="Email" class="form-control" />
+            <small><span asp-validation-for="Email" class="form-text text-danger"></span></small>
+        </div>
+    </div>
+
+
+
+        <div class="col-md-6">
+            <div class="form-group mb-lg-40 mb-20">
+        <label class="mb-10" asp-for="CityId">City</label>
+                <select class="form-select select__field" asp-for="CityId" asp-items="@City">
+                    <option value="">Select</option>
+                </select>
+                <small><span asp-validation-for="CityId" class="form-text text-danger"></span></small>
+            </div>
+        </div>
+
+
+        <div class="col-md-6">
+            <div class="form-group mb-lg-40 mb-20">
+                <label class="mb-10" asp-for="DesireId">
+                    I want to sign up for
+                </label>
+                <select class="form-select select__field" asp-for="DesireId" asp-items="@Desire">
+                    <option value="">Select</option>
+                </select>
+                <small><span asp-validation-for="DesireId" class="form-text text-danger"></span></small>
+            </div>
+        </div>
+
+
+
+        <div class="form-group col-12">
+            <input id="g-recaptcha-response" name="g-recaptcha-response" type="hidden" value="">
+        </div>
+
+        <div class="col-md-6 offset-md-6 cus__btn">
+            <button class="btn btn-primary w-100 text-white mt-50" id="form_btn">Sign up now</button>
+        </div>
+    </div>
+</form>
+
+

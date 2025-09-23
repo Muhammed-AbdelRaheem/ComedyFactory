@@ -1,0 +1,47 @@
+﻿@using Data.Service
+@inject IActivityRepository _ActivityRepository
+
+@{
+    ViewData["Title"] = " How to Sign Up";
+
+    var Activity = await _ActivityRepository.GetAllAsync();
+
+
+}
+
+<div class="terms mb-30 bg-white py-50 mt-lg-155 mt-100 box-shadow">
+    <div class="red__circle">
+        <img src="~/images/red-circle.svg" alt="Alternate Text" />
+    </div>
+    <div class="yellow__circle">
+        <img src="~/images/yellow-circle.svg" alt="Alternate Text" />
+    </div>
+    <div class="d-flex flex-column gap-30">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-10 col-lg-11 mx-auto">
+                    <div class="heading heading__line">
+                        <h1>
+                            Terms and conditions for registration at the Comedy Factory
+                        </h1>
+                    </div>
+                    @foreach (var Activities in Activity)
+                    {
+                        <div class="mt-30 row">
+                            <div class="col-12 mb-30">
+                                <div class="heading">
+                                    <h3 class="d-flex align-items-center gap-10">
+                                        <img src="@Config.Assets@Activities.Picture" alt="" width="60" />
+                                        <span>@Activities.EnName</span>
+                                    </h3>
+                                </div>
+                            </div>
+                            @Html.Raw(Activities.EnContent)
+
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,112 @@
+﻿@inject ICountryRepository _CountryRepository
+@inject IDesireRepository _IDesireRepository;
+@inject ICityRepository _CityRepository;
+
+@using Data.Service
+
+@model PersonalDataVM
+@{
+    var Countries = await _CountryRepository.GetCountriesListArNameAsync();
+    var Desire = await _IDesireRepository.GetArDesireSelectListAsync();
+    var City = await _CityRepository.GetArCitiesListAsync();
+
+    // var path = Config.AssetsDomain.TrimEnd('/');
+}
+
+
+
+
+
+
+<form id="formContact" asp-controller="Home" asp-action="ContactForm" asp-route-language="ar">
+    @Html.AntiForgeryToken()
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="row">
+
+
+
+        <div class="col-md-6">
+            <div class="form-group mb-lg-40 mb-20">
+                <label class="mb-10" asp-for="Name"> الأسم </label>
+                <input type="text" asp-for="Name" class="form-control" />
+                <small><span asp-validation-for="Name" class="form-text text-danger"></span></small>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="form-group mb-lg-40 mb-20">
+                <label class="mb-10" asp-for="Age">العمر</label>
+                <input type="number" min="1" asp-for="Age" class="form-control" />
+                <small><span asp-validation-for="Age" class="form-text text-danger"></span></small>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="form-group mb-lg-40 mb-20">
+                <label class="mb-10" asp-for="Phone"> الموبيل</label>
+                <input type="number" asp-for="Phone" class="form-control" />
+                <small><span asp-validation-for="Phone" class="form-text text-danger"></span></small>
+            </div>
+        </div>
+
+
+        <div class="col-md-6">
+            <div class="form-group mb-lg-40 mb-20">
+                <label class="mb-10" asp-for="Genders">الجنس</label>
+                <select class="form-select select__field" asp-for="Genders" asp-items="@Html.GetEnumSelectList<Gendar>()">
+                    <option value="">اختر</option>
+                </select>
+                <small><span asp-validation-for="Genders" class="form-text text-danger"></span></small>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="form-group mb-lg-40 mb-20">
+                <label class="mb-10" asp-for="Email"> البرید الإلكتروني   </label>
+                <input type="email" asp-for="Email"  class="form-control" />
+                <small><span asp-validation-for="Email" class="form-text text-danger"></span></small>
+            </div>
+        </div>
+
+
+        <div class="col-md-6">
+            <div class="form-group mb-lg-40 mb-20">
+                <label class="mb-10" asp-for="CityId">المدينة</label>
+                <select class="form-select select__field" asp-for="CityId" asp-items="@City">
+                    <option value="">اختر</option>
+                </select>
+                <small><span asp-validation-for="CityId" class="form-text text-danger"></span></small>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="form-group mb-lg-40 mb-20">
+                <label class="mb-10" asp-for="DesireId">
+                    أودّ التسجیل في
+                </label>
+                <select class="form-select select__field" asp-for="DesireId" asp-items="@Desire">
+                    <option value="">اختر</option>
+                </select>
+                <small><span asp-validation-for="DesireId" class="form-text text-danger"></span></small>
+            </div>
+        </div>
+
+
+
+
+        <div class="form-group col-12">
+            <input id="g-recaptcha-response" name="g-recaptcha-response" type="hidden" value="">
+        </div>
+
+        <div class="col-md-6 offset-md-6 cus__btn">
+            <button class="btn btn-primary w-100 text-white mt-50" id="form_btn">
+                قدم طلبك الآن
+            </button>
+
+        </div>
+    </div>
+</form>
+
+
+
+

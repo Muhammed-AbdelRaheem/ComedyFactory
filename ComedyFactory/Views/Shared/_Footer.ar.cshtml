@@ -1,0 +1,57 @@
+﻿@inject IConfigurationRepository _IConfigurationRepository
+
+@{
+    var socialMedia = await _IConfigurationRepository.GetFirstConfigurationAsync();
+}
+
+<footer class="footer bg-light py-30">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-6 d-flex align-items-center justify-content-md-start justify-content-center order-md-0 order-1">
+                كل الحقــــوق محفوظــــة لمصنع الكوميديا © <span id="year"></span>
+            </div>
+            <div class="col-md-6 d-flex align-items-center justify-content-md-end justify-content-center order-md-1 order-0 mb-md-0 mb-20">
+                @if (socialMedia != null && socialMedia.Youtube != null && socialMedia.Instagram != null && socialMedia.Tiktok != null && socialMedia.Twitter != null )
+                {
+                    <div class="col-md-6 d-flex align-items-center justify-content-md-end justify-content-center order-md-1 order-0 mb-md-0 mb-20">
+                        <div class="d-flex flex-wrap gap-10">
+                            <a href="mailto:info@sauditheaters.com">
+
+                                <i class="fa-solid fa-envelope"></i>
+                            </a>
+                            <a href="@socialMedia.Youtube" target="_blank">
+                                <i class="fa-brands fa-youtube"></i>
+                            </a>
+                            <a href="@socialMedia.Twitter" target="_blank">
+                                <i class="fa-brands fa-twitter"></i>
+                            </a>
+                            <a href="@socialMedia.Instagram" target="_blank">
+                                <i class="fa-brands fa-instagram"></i>
+                            </a>
+                            <a href="@socialMedia.Tiktok" target="_blank">
+                                <i class="fa-brands fa-tiktok"></i>
+                            </a>
+                        </div>
+                    </div>
+                }
+                else
+                {
+
+                }
+            </div>
+        </div>
+        @if (ViewData["Title"] == "الصفحة الرئيسية")
+        {
+            <hr />
+            <div class="row algin-items-center">
+                <div class="col-md-6 d-flex align-items-center justify-content-md-start justify-content-center">
+                    <img src="~/images/gea.png" width="200" />
+                </div>
+                <div class="col-md-6 d-flex align-items-center justify-content-md-end justify-content-center">
+                    <img src="~/images/Vision & Quality of Life Logos-01.png" width="300" />
+                </div>
+            </div>
+        }
+    </div>
+
+</footer>
