@@ -150,11 +150,7 @@ namespace Admin.Controllers
                         var result = await _BlockRepository.UpdateBlockAsync(Block);
                         if (result)
                         {
-                            //if (blockType == BlockType.Contactus )
-                            //{
-                            //    return RedirectToAction("Edit", new { blockType, id = Block.Id });
-                            //}
-
+                       
                             await _mediator.Publish(new LogAddViewModel()
                             {
                                 ApplicationUserId = Config.GetUserId(_httpContext, _userManager),

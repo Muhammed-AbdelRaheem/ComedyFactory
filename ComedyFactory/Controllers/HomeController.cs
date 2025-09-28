@@ -65,22 +65,11 @@ namespace WebUi.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> ContactForm(string? language, PersonalDataVM personalDataVM)
         {
-            //var recaptcha = await _recaptchaService.Validate(Request);
-            //if (!recaptcha.success || recaptcha.score < 0.9)
-            //{
-            //    return RedirectToAction("Failed", "Success", new { language });
-            //}
+            
                    
             if (ModelState.IsValid)
             {
-                //var result = await _personalDataRepository.AddData(language, personalDataVM);
-
-                //if (result == true)
-                //{
-
-                //    return RedirectToAction("Index", "Success", new { language });
-
-                //}
+                
 
                 try
                 {
@@ -113,10 +102,7 @@ namespace WebUi.Controllers
                 Activities = activities.ToList(),
                 HomePageBlock = block
             };
-            //if (language == "ar")
-            //    return View("Index.ar", vm);
-
-            //return View("Index", vm);
+       
             return LocalizedView("Index", language, vm);
         }
 

@@ -135,7 +135,7 @@
                             extend: 'excelHtml5', footer: true, filename: 'users', className: 'btn my_btn btn-sm', exportOptions: { columns: [$('thead th:not(.noexport):not(:empty)')] }, text: '@_localizer["excel"]',
                             action: function (e, dt, node, config)
                             {
-                                window.location.href = '@Url.Action("LoadTable", "PersonalData")' + getFilterUrl();
+                                window.location.href = `/@Html.Controller()/PersonalExcel` + getFilterUrl();
                             },
                             init: function (api, node, config)
                             {

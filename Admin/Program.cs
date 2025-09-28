@@ -19,27 +19,29 @@ namespace Admin
 
             builder.Services.AddSession(options =>
             {
-
+                options.IdleTimeout = TimeSpan.FromMinutes(30); // keep session alive
                 options.Cookie.IsEssential = true;
                 options.Cookie.HttpOnly = true;
-                options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+                options.Cookie.SecurePolicy = CookieSecurePolicy.SameAsRequest; // allow both http/https
+             
+                //options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
 
             });
 
             // Add services to the container.
             builder.Services.AddControllersWithViews(option => option.EnableEndpointRouting = false)
-    .AddSessionStateTempDataProvider()
-    .AddJsonOptions(options =>
-    {
-        options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
-        options.JsonSerializerOptions.PropertyNamingPolicy = null;
-    })
-    .AddCookieTempDataProvider()
-    .AddXmlSerializerFormatters()
-    .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix,
-    opts => { opts.ResourcesPath = "Resources"; })
-    .AddDataAnnotationsLocalization(options =>
-    {
+                              .AddSessionStateTempDataProvider()
+                              .AddJsonOptions(options =>
+                              {
+                                  options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+                                  options.JsonSerializerOptions.PropertyNamingPolicy = null;
+                              })
+                              .AddCookieTempDataProvider()
+                              .AddXmlSerializerFormatters()
+                              .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix,
+                              opts => { opts.ResourcesPath = "Resources"; })
+                              .AddDataAnnotationsLocalization(options =>
+                              {
         options.DataAnnotationLocalizerProvider = (type, factory) =>
         {
             var assemblyName = new AssemblyName(typeof(SharedResource).GetTypeInfo().Assembly.FullName);

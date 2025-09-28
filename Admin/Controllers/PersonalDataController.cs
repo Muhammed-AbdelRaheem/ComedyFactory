@@ -49,7 +49,10 @@ namespace Admin.Controllers
         {
 
             var param = HttpContext.Session.GetString(nameof(JqueryDataTablesParameters));
-
+            if (string.IsNullOrEmpty(param))
+            {
+                return BadRequest("Session expired or parameters not found.");
+            }
             var results = await _personalDataRepository.GetPersonalDataTableAsync(JsonConvert.DeserializeObject<JqueryDataTablesParameters>(param), filterVM);
 
             return new JqueryDataTablesExcelResult<PersonalDataTable>(results.Items, "PersonalData", "PersonalData");
