@@ -12,8 +12,7 @@ namespace Domain.Models
         [Display(Name = "Male")]
         Male = 0,
         [Display(Name = "Female")]
-        Female = 1,
-
+        Female = 1
 
 
 

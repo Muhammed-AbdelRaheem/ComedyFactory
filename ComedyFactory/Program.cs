@@ -1,4 +1,3 @@
-using Domain.Models;
 using Hangfire;
 using Imageflow.Fluent;
 using Imageflow.Server;
@@ -138,9 +137,8 @@ namespace ComedyFactory
             //use hangfire
             app.UseHangfireServer();
             app.UseHangfireDashboard();
-            //app.MapControllerRoute(
-            //    name: "default",
-            //    pattern: "{controller=Home}/{action=Index}/{id?}");
+          
+
 
             app.MapControllerRoute(
               name: "Default",

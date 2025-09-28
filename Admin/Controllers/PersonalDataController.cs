@@ -8,7 +8,7 @@ using Newtonsoft.Json;
 
 namespace Admin.Controllers
 {
-    //[Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")]
 
     public class PersonalDataController : Controller
     {

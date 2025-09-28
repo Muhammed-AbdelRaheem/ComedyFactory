@@ -92,11 +92,11 @@
                         <div class="heading heading__line">
                             <h2> @item.EnName</h2>
                         </div>
-                        <div class="row mt-lg-70 mt-50">
+                        <div class="row mt-lg-70 mt-50 flex-column g-5">
 
                             @foreach (var item2 in masters.Where(e => item.Id == e.MasterCategoryId))
                             {
-                                <div class="col-lg-4 col-md-6 px-10 mb-md-0 mb-30">
+                                <div class="col-lg-4 col-md-6 px-10 mb-5">
                                     <div class="bg-off-white rounded">
                                         <div class="text-center custom__profile pt-50 position-relative">
                                             <span class="long__circle"></span>

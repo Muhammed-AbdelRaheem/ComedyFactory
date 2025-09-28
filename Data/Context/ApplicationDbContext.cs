@@ -19,7 +19,8 @@ namespace Data.Context
         public WriteDbContext CreateDbContext(string[] args)
         {
             var optionsBuilder = new DbContextOptionsBuilder<WriteDbContext>();
-            optionsBuilder.UseNpgsql(Config.Write_DefaultConnection);
+            //optionsBuilder.UseNpgsql(Config.Write_DefaultConnection);
+            optionsBuilder.UseSqlServer(Config.Write_DefaultConnection);
 
             return new WriteDbContext(optionsBuilder.Options);
         }

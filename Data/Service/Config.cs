@@ -12,18 +12,32 @@ namespace Data.Service
 {
     public static class Config
     {
-        //static Config()
-        //{
-        //    UpdateProperties(Environment);
-        //}
+        ////postgres DataBase
 
-        //public static PipelineEnvironment Environment { get; set; } = PipelineEnvironment.Local;
+        //public static string Write_DefaultConnection { get; set; } = "Server=localhost;Port=5432;Database=ComedyFactoryWeb;User Id=postgres;Password=Admin@123";
+        //public static string Read_DefaultConnection { get; set; } = "Server=localhost;Port=5432;Database=ComedyFactoryWeb;User Id=postgres;Password=Admin@123";
 
-        public static string Write_DefaultConnection { get; set; } = "Server=localhost;Port=5432;Database=ComedyFactoryWeb;User Id=postgres;Password=Admin@123";
-        public static string Read_DefaultConnection { get; set; } = "Server=localhost;Port=5432;Database=ComedyFactoryWeb;User Id=postgres;Password=Admin@123";
-    
+
+        //local
+        public static string Write_DefaultConnection { get; set; } = "Server=.;DataBase=ComedyFactory;Trusted_Connection=True;TrustServerCertificate=True;MultipleActiveResultSets=true";
+        public static string Read_DefaultConnection { get; set; } = "Server=.;DataBase=ComedyFactory;Trusted_Connection=True;TrustServerCertificate=True;MultipleActiveResultSets=true";
+
+
+        ////live
+
+        //public static string Write_DefaultConnection { get; set; } = "Server=db28009.public.databaseasp.net; Database=db28009; User Id=db28009; Password=T-b6nH7_+8fL; Encrypt=False; MultipleActiveResultSets=True;";
+        //public static string Read_DefaultConnection { get; set; } = "Server=db28009.public.databaseasp.net; Database=db28009; User Id=db28009; Password=T-b6nH7_+8fL; Encrypt=False; MultipleActiveResultSets=True";
+
+
         public static string Placeholder { get; set; } = "images/front/placeholder.png";
+
+        //local
         public static string AssetsDomain { get; set; } = "https://localhost:7133";
+
+        //////live
+        //public static string AssetsDomain { get; set; } = "http://comedyfacotryadminstrator.runasp.net/";
+
+
         public static string Assets { get; set; }
         public static string ImageflowS3Key { get; set; } = "/uploads/images/";
         public static string VideoBaseURLImg { get; set; } = "https://img.youtube.com/vi/";

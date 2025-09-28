@@ -34,12 +34,14 @@
                             <div class="col-12 mb-30">
                                 <div class="heading">
                                     <h3 class="d-flex align-items-center gap-10">
-                                        <img src="@Config.Assets@Activities.Picture" alt="" width="60" />
+                                        <img src="@Config.AssetsDomain@Activities.Picture" alt="" width="60" />
                                         <span>@Activities.ArName</span>
                                     </h3>
                                 </div>
                             </div>
-                            @Html.Raw(Activities.ArContent)
+
+                                @Html.Raw(Activities.ArContent)
+
 
                         </div>
                     }
@@ -51,3 +53,4 @@
         </div>
     </div>
 </div>
+

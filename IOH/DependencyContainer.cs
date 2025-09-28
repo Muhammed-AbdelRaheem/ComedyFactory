@@ -5,7 +5,6 @@ using Data.Context;
 using Data.Service;
 using Domain.Models;
 using Hangfire;
-using Hangfire.PostgreSql;
 using IoC;
 using IOH.Service;
 using Microsoft.AspNetCore.Builder;
@@ -35,19 +34,27 @@ namespace IOH
                 cfg.RegisterServicesFromAssemblyContaining<DependencyContainer>();
             });
 
-            services.AddDbContext<WriteDbContext>(options => options.UseNpgsql(Config.Write_DefaultConnection,
-          npgsqlOptionsAction: sqlOptions => { sqlOptions.EnableRetryOnFailure(); }));
+            //  services.AddDbContext<WriteDbContext>(options => options.UseNpgsql(Config.Write_DefaultConnection,
+            //npgsqlOptionsAction: sqlOptions => { sqlOptions.EnableRetryOnFailure(); }));
 
-            services.AddDbContext<ReadDBContext>(options => options.UseNpgsql(Config.Read_DefaultConnection,
-            npgsqlOptionsAction: sqlOptions => { sqlOptions.EnableRetryOnFailure(); }));
+            //  services.AddDbContext<ReadDBContext>(options => options.UseNpgsql(Config.Read_DefaultConnection,
+            //  npgsqlOptionsAction: sqlOptions => { sqlOptions.EnableRetryOnFailure(); }));
+            services.AddDbContext<WriteDbContext>(options =>
+      options.UseSqlServer(Config.Write_DefaultConnection));
+
+            services.AddDbContext<ReadDBContext>(options =>
+                options.UseSqlServer(Config.Read_DefaultConnection));
 
             //hangfire setting
             services.AddHangfire(config =>
-                config.UsePostgreSqlStorage(options =>
-                {
-                    options.UseNpgsqlConnection(Config.Write_DefaultConnection);
-                })
-            );
+            
+                    //config.UsePostgreSqlStorage(options =>
+                    //{
+                    //    options.UseNpgsqlConnection(Config.Write_DefaultConnection);
+                    //})
+                    config.UseSqlServerStorage(Config.Write_DefaultConnection));
+
+            
 
 
             services.AddIdentity<ApplicationUser, ApplicationRole>(options =>

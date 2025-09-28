@@ -1,17 +1,20 @@
 ﻿using Data.IRepository;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BoxingUi.Controllers
+namespace WebUi.Controllers
 {
-    public class SuccessController : Controller
+    public class SuccessController : BaseController
     {
 
 
 
 
-        public IActionResult Index()
+        public IActionResult Index(string language = "en")
         {
-            return View();
+            if (language == "ar")
+                return View("Ar");
+
+            return View("Index");
         }
 
         public IActionResult Ar()

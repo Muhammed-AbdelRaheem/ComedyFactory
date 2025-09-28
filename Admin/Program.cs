@@ -72,15 +72,15 @@ namespace Admin
                 }
             });
 
-            if (!builder.Environment.IsDevelopment())
-            {
-                app.UseStaticFiles(new StaticFileOptions
-                {
-                    FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @".well-known")),
-                    RequestPath = new PathString("/.well-known"),
-                    ServeUnknownFileTypes = true// serve extensionless file
-                });
-            }
+            //if (!builder.Environment.IsDevelopment())
+            //{
+            //    app.UseStaticFiles(new StaticFileOptions
+            //    {
+            //        FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @".well-known")),
+            //        RequestPath = new PathString("/.well-known"),
+            //        ServeUnknownFileTypes = true// serve extensionless file
+            //    });
+            //}
             app.UseRouting();
             app.UseSession();
             app.UseAuthentication();

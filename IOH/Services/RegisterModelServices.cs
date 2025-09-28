@@ -47,7 +47,6 @@ namespace IOH.Service
             services.AddScoped<IMasterCategoryRepository, MasterCategoryRepository>();
             services.AddScoped<IMasterRepository, MasterRepository>();
             services.AddScoped<IActivityRepository, ActivityRepository>();
-            //services.AddScoped<INationalityRepository, NationalityRepository>();
 
 
 

@@ -5,13 +5,13 @@ using Data.IRepository;
 using Data.Repository;
 using Domain.Models;
 using Domain.Models.ViewModel;
-using IoC;
+using IoC.Resources;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Localization;
 using reCAPTCHA.AspNetCore;
 
-namespace ComedyFactory.Controllers
+namespace WebUi.Controllers
 {
     public class HomeController : BaseController
     {
@@ -57,7 +57,6 @@ namespace ComedyFactory.Controllers
                 return View("Register.ar");
 
             return View("Register");
-            //return View();
         }
 
 
@@ -66,36 +65,37 @@ namespace ComedyFactory.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> ContactForm(string? language, PersonalDataVM personalDataVM)
         {
-            var recaptcha = await _recaptchaService.Validate(Request);
-            if (!recaptcha.success || recaptcha.score < 0.9)
-            {
-                return RedirectToAction("Failed", " Success");
-            }
+            //var recaptcha = await _recaptchaService.Validate(Request);
+            //if (!recaptcha.success || recaptcha.score < 0.9)
+            //{
+            //    return RedirectToAction("Failed", "Success", new { language });
+            //}
+                   
             if (ModelState.IsValid)
             {
-                var result = await _personalDataRepository.AddData(language, personalDataVM);
+                //var result = await _personalDataRepository.AddData(language, personalDataVM);
 
-                if (result == true)
+                //if (result == true)
+                //{
+
+                //    return RedirectToAction("Index", "Success", new { language });
+
+                //}
+
+                try
                 {
-                    if (string.Equals(language, "en", StringComparison.OrdinalIgnoreCase))
-                    {
-                        return RedirectToAction("Index", "Success");
-                    }
-                    else if (string.Equals(language, "ar", StringComparison.OrdinalIgnoreCase))
-                    {
-                        return RedirectToAction("Ar", "Success");
-                    }
+                    var result = await _personalDataRepository.AddData(language, personalDataVM);
+                    if (result)
+                        return RedirectToAction("Index", "Success", new { language });
                 }
-            }
-            if (language == "ar")
-            {
-                return Redirect("/ar/Failed");
-            }
-            else
-            {
-                return Redirect("/en/Failed/en");
-            }
+                catch (Exception ex)
+                {
+                    // log ex.Message
+                    return Content("Error: " + ex.Message);
+                }
 
+            }
+            return View("Register", personalDataVM);
         }
 
         public async Task<IActionResult> Index(string language = "en")
